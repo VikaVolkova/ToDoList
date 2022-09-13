@@ -1,8 +1,15 @@
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
+const cors = require("cors");
+const todos = require("./routes/todos");
 
 require("dotenv").config();
+
+app.use(cors());
+app.use(express.json());
+
+app.use("/api/todos", todos);
 
 app.get("/", (req, res) => {
   res.send("Welcome!");
