@@ -9,7 +9,8 @@ const todoSchema = new mongoose.Schema({
   },
   author: {
     type: String,
-    required: true,
+    minlength: 3,
+    maxlength: 30,
   },
   uid: String,
   isComplete: Boolean,
