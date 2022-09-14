@@ -1,15 +1,8 @@
 const { Todo } = require("../models/todo");
 const express = require("express");
-const Joi = require("joi");
+const { todoSchema } = require("../validation/todo");
 
 const router = express.Router();
-const schema = Joi.object({
-  name: Joi.string().min(3).max(200).required(),
-  author: Joi.string().min(3).max(30),
-  uid: Joi.string(),
-  isComplete: Joi.boolean(),
-  date: Joi.date(),
-});
 
 router.get("/", async (req, res) => {
   try {
@@ -21,7 +14,7 @@ router.get("/", async (req, res) => {
 });
 
 router.post("/", async (req, res) => {
-  const { error } = schema.validate(req.body);
+  const { error } = todoSchema.validate(req.body);
 
   if (error) return res.status(400).send(error.details[0].message);
 
@@ -47,7 +40,7 @@ router.put("/:id", async (req, res) => {
   const id = req.params.id;
   const { name, author, isComplete, date, uid } = req.body;
 
-  const { error } = schema.validate(req.body);
+  const { error } = todoSchema.validate(req.body);
   if (error) return res.status(400).send(error.details[0].message);
 
   try {
