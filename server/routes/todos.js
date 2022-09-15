@@ -1,12 +1,14 @@
 const { Todo } = require("../models/todo");
 const express = require("express");
 const { todoSchema } = require("../validation/todo");
+const auth = require("../middleware/auth");
 
 const router = express.Router();
 
-router.get("/", async (req, res) => {
+router.get("/", auth, async (req, res) => {
   try {
     const todos = await Todo.find().sort({ date: -1 });
+
     res.status(200).send(todos);
   } catch (err) {
     res.status(500).send(err.message);
