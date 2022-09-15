@@ -1,10 +1,20 @@
-import { ToDoForm } from "./components/ToDoForm";
+import React from "react";
+import { Routes, Route } from "react-router-dom";
+import Todos from "./components/Todos";
+import Login from "./components/Login";
+import Register from "./components/Register";
+import NavBar from "./components/NavBar";
 
 function App() {
   return (
-    <div className="App">
-      <ToDoForm />
-    </div>
+    <>
+      <NavBar />
+      <Routes>
+        <Route path="/" element={<Todos />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/login" element={<Login />} />
+      </Routes>
+    </>
   );
 }
 
