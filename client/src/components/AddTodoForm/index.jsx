@@ -16,7 +16,6 @@ const AddTodoForm = () => {
           fullWidth
         />
         <Button
-          color="primary"
           variant="contained"
           type="submit"
           sx={{ marginLeft: "20px", backgroundColor: palette.primary }}
