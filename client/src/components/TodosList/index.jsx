@@ -1,10 +1,16 @@
 import React from "react";
 import Todo from "../Todo";
+import { Typography } from "@mui/material";
+import s from "./index.module.css";
 
 const TodosList = () => {
   return (
     <>
-      <Todo></Todo>
+      <div className={s.todosStyle}>
+        <Typography variant="h5">My tasks</Typography>
+        <Todo />
+        <Todo />
+      </div>
     </>
   );
 };
