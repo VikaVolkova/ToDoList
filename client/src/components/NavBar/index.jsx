@@ -3,7 +3,7 @@ import { AppBar, Typography, Toolbar, Button } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
 import s from "./index.module.css";
 import palette from "../../palette";
-import AuthNav from "../AuthNav";
+// import AuthNav from "../AuthNav";
 
 const NavBar = () => {
   const navigate = useNavigate();
