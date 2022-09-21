@@ -1,0 +1,8 @@
+.form {
+  margin: 0 auto;
+  padding: 30px;
+  border-radius: 9px;
+  box-shadow: 0 0 12px -3px black;
+  display: flex;
+  justify-content: space-between;
+}
