@@ -3,6 +3,7 @@ import { AppBar, Typography, Toolbar, Button } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
 import s from "./index.module.css";
 import palette from "../../palette";
+import AuthNav from "../AuthNav";
 
 const NavBar = () => {
   const navigate = useNavigate();
@@ -26,7 +27,7 @@ const NavBar = () => {
           <Typography variant="subtitle2" component="div" sx={{ flexGrow: 1 }}>
             Hello, Name!
           </Typography>
-          <Button
+          {/* <Button
             onClick={() => handleSignOut()}
             sx={{ color: "white" }}
             variant="text"
@@ -43,7 +44,8 @@ const NavBar = () => {
             <Link to="/register" className={s.link}>
               SIGN UP
             </Link>
-          </Button>
+          </Button> */}
+          {/* <AuthNav /> */}
         </Toolbar>
       </AppBar>
     </>
