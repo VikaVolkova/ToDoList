@@ -1,6 +1,7 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
 import NavBar from "../NavBar";
+import { Container } from "@mui/material";
 import s from "./index.module.css";
 
 function Layout() {
@@ -8,7 +9,9 @@ function Layout() {
     <>
       <NavBar />
       <main className={s.mainSection}>
-        <Outlet />
+        <Container maxWidth="md">
+          <Outlet />
+        </Container>
       </main>
     </>
   );

@@ -2,10 +2,9 @@ import React from "react";
 import { AppBar, Typography, Toolbar, Button } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
 import s from "./index.module.css";
-import { deepPurple } from "@mui/material/colors";
+import palette from "../../palette";
 
 const NavBar = () => {
-  const primary = deepPurple[400];
   const navigate = useNavigate();
   const handleSignOut = () => {
     navigate("/login");
@@ -15,7 +14,7 @@ const NavBar = () => {
       <AppBar
         position="fixed"
         sx={{
-          backgroundColor: primary,
+          backgroundColor: palette.primary,
         }}
       >
         <Toolbar>
