@@ -6,7 +6,15 @@ import moment from "moment";
 import classNames from "classnames";
 import palette from "../../palette";
 
-const Todo = ({ todo }) => {
+const Todo = ({ todo, setTodo }) => {
+  const handleUpdate = () => {
+    setTodo(todo);
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: "smooth",
+    });
+  };
   return (
     <>
       <div
@@ -34,7 +42,7 @@ const Todo = ({ todo }) => {
             <IconButton size="small">
               <CheckCircle sx={{ color: palette.success }} />
             </IconButton>
-            <IconButton size="small">
+            <IconButton size="small" onClick={() => handleUpdate()}>
               <Create sx={{ color: palette.primary }} />
             </IconButton>
             <IconButton size="small">

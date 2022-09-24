@@ -6,7 +6,7 @@ import { getTodos } from "../../api";
 import { Box, CircularProgress, Typography } from "@mui/material";
 import s from "./index.module.css";
 
-const TodosList = () => {
+const TodosList = ({ setTodo }) => {
   const dispatch = useDispatch();
   const todosState = useSelector((state) => state.todosState);
   const { todos } = todosState;
@@ -28,7 +28,7 @@ const TodosList = () => {
           </Box>
         ) : null}
         {todos.map((todo) => (
-          <Todo todo={todo} key={todo._id} />
+          <Todo todo={todo} key={todo._id} setTodo={setTodo} />
         ))}
       </div>
     </>

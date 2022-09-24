@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getTodos, todosAdd } from "../api";
+import { getTodos, addTodo, updateTodo } from "../api";
 
 const initialState = {
   todos: [],
@@ -18,7 +18,7 @@ const todosSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: {
-    [todosAdd.pending]: (state) => {
+    [addTodo.pending]: (state) => {
       return {
         ...state,
         addTodoStatus: "pending",
@@ -31,7 +31,7 @@ const todosSlice = createSlice({
         deleteTodoError: "",
       };
     },
-    [todosAdd.fulfilled]: (state, action) => {
+    [addTodo.fulfilled]: (state, action) => {
       return {
         ...state,
         todos: [action.payload, ...state.todos],
@@ -45,7 +45,7 @@ const todosSlice = createSlice({
         deleteTodoError: "",
       };
     },
-    [todosAdd.rejected]: (state, action) => {
+    [addTodo.rejected]: (state, action) => {
       return {
         ...state,
         addTodoStatus: "rejected",
@@ -94,6 +94,49 @@ const todosSlice = createSlice({
         getTodosError: action.payload,
         updateTodoStatus: "",
         updateTodoError: "",
+        deleteTodoStatus: "",
+        deleteTodoError: "",
+      };
+    },
+    [updateTodo.pending]: (state) => {
+      return {
+        ...state,
+        addTodoStatus: "",
+        addTodoError: "",
+        getTodosStatus: "",
+        getTodosError: "",
+        updateTodoStatus: "pending",
+        updateTodoError: "",
+        deleteTodoStatus: "",
+        deleteTodoError: "",
+      };
+    },
+    [updateTodo.fulfilled]: (state, action) => {
+      const updatedTodos = state.todos.map((todo) =>
+        todo._id === action.payload._id ? action.payload : todo
+      );
+      return {
+        ...state,
+        todos: updatedTodos,
+        addTodoStatus: "",
+        addTodoError: "",
+        getTodosStatus: "",
+        getTodosError: "",
+        updateTodoStatus: "success",
+        updateTodoError: "",
+        deleteTodoStatus: "",
+        deleteTodoError: "",
+      };
+    },
+    [updateTodo.rejected]: (state, action) => {
+      return {
+        ...state,
+        addTodoStatus: "",
+        addTodoError: "",
+        getTodosStatus: "",
+        getTodosError: "",
+        updateTodoStatus: "rejected",
+        updateTodoError: action.payload,
         deleteTodoStatus: "",
         deleteTodoError: "",
       };

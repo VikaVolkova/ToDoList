@@ -3,22 +3,26 @@ import { TextField, Button, Alert, CircularProgress } from "@mui/material";
 import { Send } from "@mui/icons-material";
 import s from "./index.module.css";
 import palette from "../../palette";
-import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { todosAdd } from "../../api";
+import { addTodo, updateTodo } from "../../api";
 
-const AddTodoForm = () => {
+const AddTodoForm = ({ todo, setTodo }) => {
   const dispatch = useDispatch();
   const todosState = useSelector((state) => state.todosState);
-  const [todo, setTodo] = useState({
-    name: "",
-    isComplete: false,
-  });
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(todosAdd(todo));
-    console.log(todo);
+
+    if (todo._id) {
+      dispatch(updateTodo(todo));
+    } else {
+      const newTodo = {
+        ...todo,
+        date: new Date(),
+      };
+      dispatch(addTodo(newTodo));
+    }
+
     setTodo({
       name: "",
       isComplete: false,
@@ -40,9 +44,7 @@ const AddTodoForm = () => {
           autoFocus
           fullWidth
           value={todo.name}
-          onChange={(e) =>
-            setTodo({ ...todo, name: e.target.value, date: new Date() })
-          }
+          onChange={(e) => setTodo({ ...todo, name: e.target.value })}
         />
         <Button
           variant="contained"
