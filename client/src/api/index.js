@@ -10,8 +10,19 @@ export const todosAdd = createAsyncThunk(
       const response = await axios.post(`${baseURL}todos`, todo);
       return response.data;
     } catch (error) {
-      console.log(error);
-      return rejectWithValue(error.response?.data);
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
+
+export const getTodos = createAsyncThunk(
+  "todos/getTodos",
+  async (id = null, { rejectWithValue }) => {
+    try {
+      const response = await axios.get(`${baseURL}todos`);
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.response.data);
     }
   }
 );

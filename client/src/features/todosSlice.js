@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { todosAdd } from "../api";
+import { getTodos, todosAdd } from "../api";
 
 const initialState = {
   todos: [],
@@ -52,6 +52,46 @@ const todosSlice = createSlice({
         addTodoError: action.payload,
         getTodosStatus: "",
         getTodosError: "",
+        updateTodoStatus: "",
+        updateTodoError: "",
+        deleteTodoStatus: "",
+        deleteTodoError: "",
+      };
+    },
+    [getTodos.pending]: (state) => {
+      return {
+        ...state,
+        addTodoStatus: "",
+        addTodoError: "",
+        getTodosStatus: "pending",
+        getTodosError: "",
+        updateTodoStatus: "",
+        updateTodoError: "",
+        deleteTodoStatus: "",
+        deleteTodoError: "",
+      };
+    },
+    [getTodos.fulfilled]: (state, action) => {
+      return {
+        ...state,
+        todos: action.payload,
+        addTodoStatus: "",
+        addTodoError: "",
+        getTodosStatus: "success",
+        getTodosError: "",
+        updateTodoStatus: "",
+        updateTodoError: "",
+        deleteTodoStatus: "",
+        deleteTodoError: "",
+      };
+    },
+    [getTodos.rejected]: (state, action) => {
+      return {
+        ...state,
+        addTodoStatus: "",
+        addTodoError: "",
+        getTodosStatus: "rejected",
+        getTodosError: action.payload,
         updateTodoStatus: "",
         updateTodoError: "",
         deleteTodoStatus: "",
