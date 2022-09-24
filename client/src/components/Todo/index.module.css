@@ -10,3 +10,11 @@
 .grayStyle {
   color: #8f8f8f;
 }
+
+.isCompletedTask {
+  background-color: rgb(205, 255, 205);
+}
+
+.isCompletedText {
+  text-decoration: line-through;
+}
