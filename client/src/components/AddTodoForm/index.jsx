@@ -1,5 +1,5 @@
 import React from "react";
-import { TextField, Button, Alert, CircularProgress } from "@mui/material";
+import { TextField, Button, CircularProgress } from "@mui/material";
 import { Send } from "@mui/icons-material";
 import s from "./index.module.css";
 import palette from "../../palette";
@@ -58,30 +58,6 @@ const AddTodoForm = ({ todo, setTodo }) => {
           )}
         </Button>
       </form>
-      {todosState.addTodoStatus === "rejected" ? (
-        <Alert severity="error">{todosState.addTodoError}</Alert>
-      ) : null}
-      {todosState.addTodoStatus === "success" && alert ? (
-        <Alert severity="success">Task has been added!</Alert>
-      ) : null}
-      {todosState.updateTodoStatus === "rejected" ? (
-        <Alert severity="error">{todosState.updateTodoError}</Alert>
-      ) : null}
-      {todosState.updateTodoStatus === "success" && alert ? (
-        <Alert severity="success">Task has been updated!</Alert>
-      ) : null}
-      {todosState.checkTodoStatus === "rejected" ? (
-        <Alert severity="error">{todosState.checkTodoError}</Alert>
-      ) : null}
-      {todosState.checkTodoStatus === "success" && alert ? (
-        <Alert severity="success">Task has been completed!</Alert>
-      ) : null}
-      {todosState.deleteTodoStatus === "rejected" ? (
-        <Alert severity="error">{todosState.deleteTodoError}</Alert>
-      ) : null}
-      {todosState.deleteTodoStatus === "success" && alert ? (
-        <Alert severity="error">Task has been deleted!</Alert>
-      ) : null}
     </div>
   );
 };
