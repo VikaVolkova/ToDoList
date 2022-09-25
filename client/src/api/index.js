@@ -1,5 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 const baseURL = "http://localhost:5000/api/";
 
@@ -8,8 +9,10 @@ export const addTodo = createAsyncThunk(
   async (todo, { rejectWithValue }) => {
     try {
       const response = await axios.post(`${baseURL}todos`, todo);
+      toast.success("Task has been added!");
       return response.data;
     } catch (error) {
+      toast.error(error.response?.data);
       return rejectWithValue(error.response.data);
     }
   }
@@ -22,6 +25,7 @@ export const getTodos = createAsyncThunk(
       const response = await axios.get(`${baseURL}todos`);
       return response.data;
     } catch (error) {
+      toast.error(error.response?.data);
       return rejectWithValue(error.response.data);
     }
   }
@@ -38,8 +42,10 @@ export const updateTodo = createAsyncThunk(
         isComplete,
         date,
       });
+      toast.success("Task has been updated!");
       return response.data;
     } catch (error) {
+      toast.error(error.response?.data);
       return rejectWithValue(error.response.data);
     }
   }
@@ -50,8 +56,10 @@ export const checkTodo = createAsyncThunk(
   async (_id, { rejectWithValue }) => {
     try {
       const response = await axios.patch(`${baseURL}todos/${_id}`);
+      toast.success("Task has been completed!");
       return response.data;
     } catch (error) {
+      toast.error(error.response?.data);
       return rejectWithValue(error.response.data);
     }
   }
@@ -62,8 +70,10 @@ export const deleteTodo = createAsyncThunk(
   async (_id, { rejectWithValue }) => {
     try {
       const response = await axios.delete(`${baseURL}todos/${_id}`);
+      toast.success("Task has been deleted!");
       return response.data;
     } catch (error) {
+      toast.error(error.response?.data);
       return rejectWithValue(error.response.data);
     }
   }
