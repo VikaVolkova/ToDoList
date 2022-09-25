@@ -78,3 +78,18 @@ export const deleteTodo = createAsyncThunk(
     }
   }
 );
+
+export const register = createAsyncThunk(
+  "todos/register",
+  async (user, { rejectWithValue }) => {
+    try {
+      const token = await axios.post(`${baseURL}user/register`, user);
+      localStorage.setItem("token", token.data);
+      toast.success("User has been registered!");
+      return token.data;
+    } catch (error) {
+      toast.error(error.response?.data);
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
