@@ -70,11 +70,17 @@ const AddTodoForm = ({ todo, setTodo }) => {
       {todosState.updateTodoStatus === "success" && alert ? (
         <Alert severity="success">Task has been updated!</Alert>
       ) : null}
+      {todosState.checkTodoStatus === "rejected" ? (
+        <Alert severity="error">{todosState.checkTodoError}</Alert>
+      ) : null}
+      {todosState.checkTodoStatus === "success" && alert ? (
+        <Alert severity="success">Task has been completed!</Alert>
+      ) : null}
       {todosState.deleteTodoStatus === "rejected" ? (
         <Alert severity="error">{todosState.deleteTodoError}</Alert>
       ) : null}
       {todosState.deleteTodoStatus === "success" && alert ? (
-        <Alert severity="success">Task has been deleted!</Alert>
+        <Alert severity="error">Task has been deleted!</Alert>
       ) : null}
     </div>
   );

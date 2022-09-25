@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getTodos, addTodo, updateTodo } from "../api";
+import { getTodos, addTodo, updateTodo, deleteTodo, checkTodo } from "../api";
 
 const initialState = {
   todos: [],
@@ -9,6 +9,8 @@ const initialState = {
   getTodosError: "",
   updateTodoStatus: "",
   updateTodoError: "",
+  checkTodoStatus: "",
+  checkTodoError: "",
   deleteTodoStatus: "",
   deleteTodoError: "",
 };
@@ -23,12 +25,6 @@ const todosSlice = createSlice({
         ...state,
         addTodoStatus: "pending",
         addTodoError: "",
-        getTodosStatus: "",
-        getTodosError: "",
-        updateTodoStatus: "",
-        updateTodoError: "",
-        deleteTodoStatus: "",
-        deleteTodoError: "",
       };
     },
     [addTodo.fulfilled]: (state, action) => {
@@ -37,12 +33,6 @@ const todosSlice = createSlice({
         todos: [action.payload, ...state.todos],
         addTodoStatus: "success",
         addTodoError: "",
-        getTodosStatus: "",
-        getTodosError: "",
-        updateTodoStatus: "",
-        updateTodoError: "",
-        deleteTodoStatus: "",
-        deleteTodoError: "",
       };
     },
     [addTodo.rejected]: (state, action) => {
@@ -50,65 +40,35 @@ const todosSlice = createSlice({
         ...state,
         addTodoStatus: "rejected",
         addTodoError: action.payload,
-        getTodosStatus: "",
-        getTodosError: "",
-        updateTodoStatus: "",
-        updateTodoError: "",
-        deleteTodoStatus: "",
-        deleteTodoError: "",
       };
     },
     [getTodos.pending]: (state) => {
       return {
         ...state,
-        addTodoStatus: "",
-        addTodoError: "",
         getTodosStatus: "pending",
         getTodosError: "",
-        updateTodoStatus: "",
-        updateTodoError: "",
-        deleteTodoStatus: "",
-        deleteTodoError: "",
       };
     },
     [getTodos.fulfilled]: (state, action) => {
       return {
         ...state,
         todos: action.payload,
-        addTodoStatus: "",
-        addTodoError: "",
         getTodosStatus: "success",
         getTodosError: "",
-        updateTodoStatus: "",
-        updateTodoError: "",
-        deleteTodoStatus: "",
-        deleteTodoError: "",
       };
     },
     [getTodos.rejected]: (state, action) => {
       return {
         ...state,
-        addTodoStatus: "",
-        addTodoError: "",
         getTodosStatus: "rejected",
         getTodosError: action.payload,
-        updateTodoStatus: "",
-        updateTodoError: "",
-        deleteTodoStatus: "",
-        deleteTodoError: "",
       };
     },
     [updateTodo.pending]: (state) => {
       return {
         ...state,
-        addTodoStatus: "",
-        addTodoError: "",
-        getTodosStatus: "",
-        getTodosError: "",
         updateTodoStatus: "pending",
         updateTodoError: "",
-        deleteTodoStatus: "",
-        deleteTodoError: "",
       };
     },
     [updateTodo.fulfilled]: (state, action) => {
@@ -118,27 +78,65 @@ const todosSlice = createSlice({
       return {
         ...state,
         todos: updatedTodos,
-        addTodoStatus: "",
-        addTodoError: "",
-        getTodosStatus: "",
-        getTodosError: "",
         updateTodoStatus: "success",
         updateTodoError: "",
-        deleteTodoStatus: "",
-        deleteTodoError: "",
       };
     },
     [updateTodo.rejected]: (state, action) => {
       return {
         ...state,
-        addTodoStatus: "",
-        addTodoError: "",
-        getTodosStatus: "",
-        getTodosError: "",
         updateTodoStatus: "rejected",
         updateTodoError: action.payload,
-        deleteTodoStatus: "",
+      };
+    },
+    [checkTodo.pending]: (state) => {
+      return {
+        ...state,
+        checkTodoStatus: "pending",
+        checkTodoError: "",
+      };
+    },
+    [checkTodo.fulfilled]: (state, action) => {
+      const updatedTodos = state.todos.map((todo) =>
+        todo._id === action.payload._id ? action.payload : todo
+      );
+      return {
+        ...state,
+        todos: updatedTodos,
+        checkTodoStatus: "success",
+        checkTodoError: "",
+      };
+    },
+    [checkTodo.rejected]: (state, action) => {
+      return {
+        ...state,
+        checkTodoStatus: "rejected",
+        checkTodoError: action.payload,
+      };
+    },
+    [deleteTodo.pending]: (state) => {
+      return {
+        ...state,
+        deleteTodoStatus: "pending",
         deleteTodoError: "",
+      };
+    },
+    [deleteTodo.fulfilled]: (state, action) => {
+      const currentTodos = state.todos.filter(
+        (todo) => todo._id !== action.payload._id
+      );
+      return {
+        ...state,
+        todos: currentTodos,
+        deleteTodoStatus: "success",
+        deleteTodoError: "",
+      };
+    },
+    [deleteTodo.rejected]: (state, action) => {
+      return {
+        ...state,
+        deleteTodoStatus: "rejected",
+        deleteTodoError: action.payload,
       };
     },
   },

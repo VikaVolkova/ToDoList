@@ -1,12 +1,16 @@
 import React from "react";
 import s from "./index.module.css";
 import { Typography, IconButton, Stack } from "@mui/material";
-import { Create, Delete, CheckCircle } from "@mui/icons-material";
+import { Create, Delete, CheckCircle, DoDisturbOn } from "@mui/icons-material";
 import moment from "moment";
+import { useDispatch } from "react-redux";
 import classNames from "classnames";
 import palette from "../../palette";
+import { checkTodo, deleteTodo } from "../../api";
 
 const Todo = ({ todo, setTodo }) => {
+  const dispatch = useDispatch();
+
   const handleUpdate = () => {
     setTodo(todo);
     window.scrollTo({
@@ -14,6 +18,14 @@ const Todo = ({ todo, setTodo }) => {
       left: 0,
       behavior: "smooth",
     });
+  };
+
+  const handleDelete = (id) => {
+    dispatch(deleteTodo(id));
+  };
+
+  const handleCheck = (id) => {
+    dispatch(checkTodo(id));
   };
   return (
     <>
@@ -39,13 +51,17 @@ const Todo = ({ todo, setTodo }) => {
         </div>
         <div>
           <Stack direction="row" justifyContent="flex-end" spacing={1}>
-            <IconButton size="small">
-              <CheckCircle sx={{ color: palette.success }} />
+            <IconButton size="small" onClick={() => handleCheck(todo._id)}>
+              {todo.isComplete ? (
+                <DoDisturbOn sx={{ color: palette.warning }} />
+              ) : (
+                <CheckCircle sx={{ color: palette.success }} />
+              )}
             </IconButton>
             <IconButton size="small" onClick={() => handleUpdate()}>
               <Create sx={{ color: palette.primary }} />
             </IconButton>
-            <IconButton size="small">
+            <IconButton size="small" onClick={() => handleDelete(todo._id)}>
               <Delete sx={{ color: palette.warning }} />
             </IconButton>
           </Stack>

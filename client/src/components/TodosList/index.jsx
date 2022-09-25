@@ -14,7 +14,6 @@ const TodosList = ({ setTodo }) => {
   useEffect(() => {
     dispatch(getTodos());
   }, [dispatch]);
-  console.log(todos);
 
   return (
     <>

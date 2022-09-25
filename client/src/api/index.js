@@ -44,3 +44,27 @@ export const updateTodo = createAsyncThunk(
     }
   }
 );
+
+export const checkTodo = createAsyncThunk(
+  "todos/checkTodo",
+  async (_id, { rejectWithValue }) => {
+    try {
+      const response = await axios.patch(`${baseURL}todos/${_id}`);
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
+
+export const deleteTodo = createAsyncThunk(
+  "todos/deleteTodo",
+  async (_id, { rejectWithValue }) => {
+    try {
+      const response = await axios.delete(`${baseURL}todos/${_id}`);
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
