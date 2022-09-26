@@ -85,7 +85,22 @@ export const register = createAsyncThunk(
     try {
       const token = await axios.post(`${baseURL}user/register`, user);
       localStorage.setItem("token", token.data);
-      toast.success("User has been registered!");
+      toast.success("Welcome!");
+      return token.data;
+    } catch (error) {
+      toast.error(error.response?.data);
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
+
+export const login = createAsyncThunk(
+  "todos/login",
+  async (user, { rejectWithValue }) => {
+    try {
+      const token = await axios.post(`${baseURL}user/login`, user);
+      localStorage.setItem("token", token.data);
+      toast.success("Welcome!");
       return token.data;
     } catch (error) {
       toast.error(error.response?.data);
