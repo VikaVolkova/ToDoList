@@ -80,7 +80,7 @@ export const deleteTodo = createAsyncThunk(
 );
 
 export const register = createAsyncThunk(
-  "todos/register",
+  "user/register",
   async (user, { rejectWithValue }) => {
     try {
       const token = await axios.post(`${baseURL}user/register`, user);
