@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
-import { Typography, TextField, Button } from "@mui/material";
+import { Typography, TextField, Button, CircularProgress } from "@mui/material";
 import palette from "../../palette";
 import s from "./index.module.css";
 import { register } from "../../api";
@@ -64,7 +64,7 @@ const Register = () => {
           type="submit"
           sx={{ backgroundColor: palette.primary, marginTop: "20px" }}
         >
-          LOGIN
+          {auth.registerStatus === "pending" ? "SIGNING..." : "SIGN UP"}
         </Button>
       </form>
     </>
