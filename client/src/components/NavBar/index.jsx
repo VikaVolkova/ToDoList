@@ -2,14 +2,20 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { AppBar, Typography, Toolbar, Button } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import s from "./index.module.css";
 import palette from "../../palette";
+import { logoutUser } from "../../features/authSlice";
+import { toast } from "react-toastify";
 // import AuthNav from "../AuthNav";
 
 const NavBar = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const handleSignOut = () => {
+    dispatch(logoutUser(null));
     navigate("/login");
+    toast.warning("Successfully logged out");
   };
   const state = useSelector((state) => state);
   console.log(state);
