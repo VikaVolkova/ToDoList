@@ -1,4 +1,5 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { AppBar, Typography, Toolbar, Button } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
 import s from "./index.module.css";
@@ -10,6 +11,8 @@ const NavBar = () => {
   const handleSignOut = () => {
     navigate("/login");
   };
+  const state = useSelector((state) => state);
+  console.log(state);
   return (
     <>
       <AppBar
@@ -27,7 +30,7 @@ const NavBar = () => {
           <Typography variant="subtitle2" component="div" sx={{ flexGrow: 1 }}>
             Hello, Name!
           </Typography>
-          {/* <Button
+          <Button
             onClick={() => handleSignOut()}
             sx={{ color: "white" }}
             variant="text"
@@ -44,7 +47,7 @@ const NavBar = () => {
             <Link to="/register" className={s.link}>
               SIGN UP
             </Link>
-          </Button> */}
+          </Button>
           {/* <AuthNav /> */}
         </Toolbar>
       </AppBar>

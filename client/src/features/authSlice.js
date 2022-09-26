@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { register } from "../api";
+import { register, login } from "../api";
 import jwtDecode from "jwt-decode";
 
 const initialState = {
@@ -73,6 +73,32 @@ const authSlice = createSlice({
         ...state,
         registerStatus: "rejected",
         registerError: action.payload,
+      };
+    },
+    [login.pending]: (state, action) => {
+      return {
+        ...state,
+        loginStatus: "pending",
+        loginError: "",
+      };
+    },
+    [login.fulfilled]: (state, action) => {
+      const user = jwtDecode(action.payload);
+      return {
+        ...state,
+        token: action.payload,
+        name: user.name,
+        email: user.email,
+        _id: user._id,
+        loginStatus: "success",
+        loginError: "",
+      };
+    },
+    [login.rejected]: (state, action) => {
+      return {
+        ...state,
+        loginStatus: "rejected",
+        loginError: action.payload,
       };
     },
   },
