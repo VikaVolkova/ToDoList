@@ -17,7 +17,37 @@ const initialState = {
 const authSlice = createSlice({
   name: "auth",
   initialState,
-  reducers: {},
+  reducers: {
+    loadUser(state, action) {
+      const token = state.token;
+      if (token) {
+        const user = jwtDecode(token);
+        return {
+          ...state,
+          token: action.payload,
+          name: user.name,
+          email: user.email,
+          _id: user._id,
+          userLoaded: true,
+        };
+      }
+    },
+    logoutUser(state, action) {
+      localStorage.removeItem("token");
+      return {
+        ...state,
+        token: "",
+        name: "",
+        email: "",
+        _id: "",
+        registerStatus: "",
+        registerError: "",
+        loginStatus: "",
+        loginError: "",
+        userLoaded: false,
+      };
+    },
+  },
   extraReducers: {
     [register.pending]: (state, action) => {
       return {
@@ -49,4 +79,5 @@ const authSlice = createSlice({
   devTools: true,
 });
 
+export const { loadUser, logoutUser } = authSlice.actions;
 export default authSlice.reducer;
