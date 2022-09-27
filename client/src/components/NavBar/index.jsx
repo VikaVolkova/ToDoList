@@ -7,7 +7,6 @@ import s from "./index.module.css";
 import palette from "../../palette";
 import { logoutUser } from "../../features/authSlice";
 import { toast } from "react-toastify";
-// import AuthNav from "../AuthNav";
 
 const NavBar = () => {
   const navigate = useNavigate();
@@ -18,7 +17,6 @@ const NavBar = () => {
     toast.warning("Successfully logged out");
   };
   const state = useSelector((state) => state);
-  console.log(state);
   return (
     <>
       <AppBar
@@ -34,7 +32,7 @@ const NavBar = () => {
             </Link>
           </Typography>
           <Typography variant="subtitle2" component="div" sx={{ flexGrow: 1 }}>
-            Hello, Name!
+            Hello, {state.auth.name}!
           </Typography>
           <Button
             onClick={() => handleSignOut()}
@@ -54,7 +52,6 @@ const NavBar = () => {
               SIGN UP
             </Link>
           </Button>
-          {/* <AuthNav /> */}
         </Toolbar>
       </AppBar>
     </>
