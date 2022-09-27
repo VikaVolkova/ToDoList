@@ -81,7 +81,12 @@ export const checkTodo = createAsyncThunk(
         {},
         setHeaders()
       );
-      toast.success("Task has been completed!");
+
+      toast.success(
+        response.data.isComplete
+          ? "Task has been completed!"
+          : "Task has been assigned!"
+      );
       return response.data;
     } catch (error) {
       toast.error(error.response?.data);
