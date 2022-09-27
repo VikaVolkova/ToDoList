@@ -14,7 +14,15 @@ const AddTodoForm = ({ todo, setTodo }) => {
     e.preventDefault();
 
     if (todo._id) {
-      dispatch(updateTodo(todo));
+      const updatedTodo = {
+        _id: todo._id,
+        name: todo.name,
+        isComplete: todo.isComplete,
+        date: todo.date,
+        author: todo.author,
+        uid: todo.uid,
+      };
+      dispatch(updateTodo(updatedTodo));
     } else {
       const newTodo = {
         ...todo,

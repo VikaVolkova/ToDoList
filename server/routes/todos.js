@@ -5,17 +5,17 @@ const auth = require("../middleware/auth");
 
 const router = express.Router();
 
-router.get("/", async (req, res) => {
+router.get("/", auth, async (req, res) => {
   try {
     const todos = await Todo.find().sort({ date: -1 });
-
-    res.status(200).send(todos);
+    const filteredTodos = todos.filter((todo) => todo.uid === req.user._id);
+    res.status(200).send(filteredTodos);
   } catch (err) {
     res.status(500).send(err.message);
   }
 });
 
-router.post("/", async (req, res) => {
+router.post("/", auth, async (req, res) => {
   const { error } = todoSchema.validate(req.body);
 
   if (error) return res.status(400).send(error.details[0].message);
@@ -38,7 +38,7 @@ router.post("/", async (req, res) => {
   }
 });
 
-router.put("/:id", async (req, res) => {
+router.put("/:id", auth, async (req, res) => {
   const id = req.params.id;
   const { name, author, isComplete, date, uid } = req.body;
 
@@ -48,6 +48,9 @@ router.put("/:id", async (req, res) => {
   try {
     const todo = await Todo.findById(id);
     if (!todo) return res.status(404).send("Todo is not found");
+
+    if (todo.uid !== req.user._id)
+      return res.status(401).send("Todo update failed");
 
     const updatedTodo = await Todo.findByIdAndUpdate(
       id,
@@ -66,13 +69,14 @@ router.put("/:id", async (req, res) => {
   }
 });
 
-router.patch("/:id", async (req, res) => {
+router.patch("/:id", auth, async (req, res) => {
   const id = req.params.id;
 
   try {
     const todo = await Todo.findById(id);
     if (!todo) return res.status(404).send("Todo is not found");
-
+    if (todo.uid !== req.user._id)
+      return res.status(401).send("Todo update failed");
     const updatedTodo = await Todo.findByIdAndUpdate(
       id,
       {
@@ -88,12 +92,13 @@ router.patch("/:id", async (req, res) => {
   }
 });
 
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", auth, async (req, res) => {
   const id = req.params.id;
   try {
     const todo = await Todo.findById(id);
     if (!todo) return res.status(404).send("Todo is not found");
-
+    if (todo.uid !== req.user._id)
+      return res.status(401).send("Todo deletion failed");
     const deletedTodo = await Todo.findByIdAndDelete(id);
     res.status(200).send(deletedTodo);
   } catch (err) {
