@@ -17,6 +17,7 @@ const NavBar = () => {
     toast.warning("Successfully logged out");
   };
   const state = useSelector((state) => state);
+  const auth = useSelector((state) => state.auth);
   return (
     <>
       <AppBar
@@ -31,27 +32,38 @@ const NavBar = () => {
               MyToDo
             </Link>
           </Typography>
-          <Typography variant="subtitle2" component="div" sx={{ flexGrow: 1 }}>
-            Hello, {state.auth.name}!
-          </Typography>
-          <Button
-            onClick={() => handleSignOut()}
-            sx={{ color: "white" }}
-            variant="text"
-            size="medium"
-          >
-            SIGN OUT
-          </Button>
-          <Button sx={{ color: "white" }} variant="text" size="medium">
-            <Link to="/login" className={s.link}>
-              SIGN IN
-            </Link>
-          </Button>
-          <Button sx={{ color: "white" }} variant="text" size="medium">
-            <Link to="/register" className={s.link}>
-              SIGN UP
-            </Link>
-          </Button>
+          {auth._id ? (
+            <React.Fragment>
+              <Typography
+                variant="subtitle2"
+                component="div"
+                sx={{ flexGrow: 1 }}
+              >
+                Hello, {state.auth.name}!
+              </Typography>
+              <Button
+                onClick={() => handleSignOut()}
+                sx={{ color: "white" }}
+                variant="text"
+                size="medium"
+              >
+                SIGN OUT
+              </Button>
+            </React.Fragment>
+          ) : (
+            <React.Fragment>
+              <Button sx={{ color: "white" }} variant="text" size="medium">
+                <Link to="/login" className={s.link}>
+                  SIGN IN
+                </Link>
+              </Button>
+              <Button sx={{ color: "white" }} variant="text" size="medium">
+                <Link to="/register" className={s.link}>
+                  SIGN UP
+                </Link>
+              </Button>
+            </React.Fragment>
+          )}
         </Toolbar>
       </AppBar>
     </>
