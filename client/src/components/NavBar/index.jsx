@@ -1,6 +1,13 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { AppBar, Typography, Toolbar, Button } from "@mui/material";
+import {
+  AppBar,
+  Typography,
+  Toolbar,
+  Button,
+  useMediaQuery,
+  useTheme,
+} from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import s from "./index.module.css";
@@ -9,6 +16,8 @@ import { logoutUser } from "../../features/authSlice";
 import { toast } from "react-toastify";
 
 const NavBar = () => {
+  const theme = useTheme();
+  const matches = useMediaQuery(theme.breakpoints.up("sm"));
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const handleSignOut = () => {
@@ -34,13 +43,15 @@ const NavBar = () => {
           </Typography>
           {auth._id ? (
             <React.Fragment>
-              <Typography
-                variant="subtitle2"
-                component="div"
-                sx={{ flexGrow: 1 }}
-              >
-                Hello, {state.auth.name}!
-              </Typography>
+              {matches ? (
+                <Typography
+                  variant="subtitle2"
+                  component="div"
+                  sx={{ flexGrow: 1 }}
+                >
+                  Hello, {state.auth.name}!
+                </Typography>
+              ) : null}
               <Button
                 onClick={() => handleSignOut()}
                 sx={{ color: "white" }}
