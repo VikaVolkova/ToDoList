@@ -1,6 +1,12 @@
 import React from "react";
 import s from "./index.module.css";
-import { Typography, IconButton, Stack } from "@mui/material";
+import {
+  Typography,
+  IconButton,
+  Stack,
+  useTheme,
+  useMediaQuery,
+} from "@mui/material";
 import { Create, Delete, CheckCircle, DoDisturbOn } from "@mui/icons-material";
 import moment from "moment";
 import { useDispatch } from "react-redux";
@@ -9,6 +15,8 @@ import palette from "../../palette";
 import { checkTodo, deleteTodo } from "../../api";
 
 const Todo = ({ todo, setTodo }) => {
+  const theme = useTheme();
+  const matches = useMediaQuery(theme.breakpoints.up("sm"));
   const dispatch = useDispatch();
 
   const handleUpdate = () => {
@@ -31,8 +39,8 @@ const Todo = ({ todo, setTodo }) => {
     <>
       <div
         className={classNames(
-          s.todo,
-          todo.isComplete ? s.isCompletedTask : null
+          todo.isComplete ? s.isCompletedTask : null,
+          !matches ? s.smallTodo : s.todo
         )}
       >
         <div>
